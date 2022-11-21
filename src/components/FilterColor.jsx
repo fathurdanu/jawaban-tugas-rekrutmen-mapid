@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import * as Components from "./";
+import {Layer} from "./";
 
 class FilterColor extends Component {
 
@@ -12,14 +12,14 @@ class FilterColor extends Component {
     }
 
     componentDidMount = () => {
-        this.setTheInteractiveLayerIds(this.state.color);
+        this.setTheInteractiveLayerIds(this.props.color);
     }
 
-    componentWillReceiveProps = (nextProps) => {
-        if (nextProps.color !== this.state.color) {
-            this.setTheInteractiveLayerIds(nextProps.color)
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.color !== this.props.color) {
+            this.setTheInteractiveLayerIds(nextProps.color);
         }
-        this.setState({ color: nextProps.color})
+        this.setState({ color: this.props.color});
     }
 
     setTheInteractiveLayerIds(color) {
@@ -34,7 +34,7 @@ class FilterColor extends Component {
         return this.props.data?.map((data, index) => (
             <div key={index}>
                 {data.properties.Status === this.props.color || !this.props.color ? (
-                    <Components.Layer
+                    <Layer
                         data={data}
                     />
                 ) : null}
